@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project - Lang'sPortfolio</title>
+
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+</head>
+
+<body>
+
+    <!-- ============================================
+        NAVIGATION
+        ============================================ -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span>Lang's</span>Portofolio
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">Tentang Saya</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="experience.html">Pengalaman</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="skills.html">Skill & Tools</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="projects.html">Project</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="certificates.html">Sertifikat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Kontak</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+        PAGE HEADER
+        ============================================ -->
+    <section class="page-header">
+        <div class="container">
+            <h1>My <span>Projects</span></h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Beranda</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Project</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- ============================================
+        PROJECTS SECTION
+        ============================================ -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-title fade-in-up">
+                <h2>Project <span style="color: var(--primary-orange);">Showcase</span></h2>
+                <p>Kumpulan project yang telah saya buat</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="text-center mb-5 fade-in-up">
+                <button class="btn btn-primary-custom filter-btn active" data-filter="all">Semua</button>
+                <button class="btn btn-outline-dark filter-btn ms-2" data-filter="web"
+                    style="border-color: var(--primary-orange); color: var(--primary-orange);">Web</button>
+                <button class="btn btn-outline-dark filter-btn ms-2" data-filter="mobile"
+                    style="border-color: var(--primary-orange); color: var(--primary-orange);">Mobile</button>
+                <button class="btn btn-outline-dark filter-btn ms-2" data-filter="dekstop"
+                    style="border-color: var(--primary-orange); color: var(--primary-orange);">Dekstop</button>
+            </div>
+
+            <div class="row">
+                <!-- Project 1 -->
+                <div class="col-lg-4 col-md-6 project-item web">
+                    <div class="project-card fade-in-up">
+                        <div class="project-image">
+                            <img src="img/modul.png" alt="E-Modul">
+                            <div class="project-overlay">
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h4>E-Modul Basis Data Kelas XI SMK</h4>
+                            <p>E-modul ini disusun menggunakan perangkat lunak Sigil untuk
+                                mengonversi dokumen Word ke format HTML dan CSS serta dilengkapi
+                                dengan daftar isi, metadata, dan sampul (cover). Selain itu, saya
+                                juga menyusun Lembar Kerja Peserta Didik (LKPD) sebagai
+                                panduan praktikum. Guna meningkatkan aspek interaktif, baik e
+                                modul maupun LKPD telah dilengkapi dengan video tutorial serta
+                                materi pendukung dalam bentuk audio.</p>
+                            <div class="project-tags">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="col-lg-4 col-md-6 project-item mobile">
+                    <div class="project-card fade-in-up">
+                        <div class="project-image">
+                            <img src="img/mobileapp.png" alt="Mobile Apps">
+                            <div class="project-overlay">
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h4>Aplikasi Mobile Jago Sholat</h4>
+                            <p>Pengembangan aplikasi “Jago Sholat” dengan bahasa
+                                pemrograman java dan kotlin. Pada versi update ini, terdapat
+                                penambahan beberapa fitur yang dapat membantu pengguna
+                                dalamberibadah secara konsisten, seperti notifikasi suara adzan
+                                ketika memasuki jam sholat, fitur kompas yang bisa digunakan
+                                untuk menentukan arah kiblat, fitur tasbih digital yang dapat
+                                digunakan ketika pengguna tidak membawa tasbih saat beribadah,
+                                menu sidebar yang terdapat halaman akun pengguna dan
+                                halaman tentang aplikasi.
+
+                            </p>
+                            <div class="project-tags">
+                                <span>Java</span>
+                                <span>Kotlin</span>
+                                <span>MySQL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="col-lg-4 col-md-6 project-item dekstop">
+                    <div class="project-card fade-in-up">
+                        <div class="project-image">
+                            <img src="img/dekstopapp.png" alt="Deksrtop App">
+                            <div class="project-overlay">
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h4>Aplikasi Dekstop Pemesanan Makanan</h4>
+                            <p>Aplikasi GUI berbasis desktop berjudul “Domatio Cafe” ini
+                                dikembangkan menggunakan bahasa pemrograman Java dengan
+                                menerapkan konsep Object-Oriented Programming (OOP).
+                                Aplikasi ini dirancang untuk memudahkan pelanggan dalam
+                                memesan makanan secara daring tanpa harus mengantre atau
+                                memanggil pelayan</p>
+                            <div class="project-tags">
+                                <span>JavaFX</span>
+                                <span>MySQL</span>
+                                <span>Swing</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="col-lg-4 col-md-6 project-item dekstop">
+                    <div class="project-card fade-in-up">
+                        <div class="project-image">
+                            <img src="img/dekstopapp2.png"
+                                alt="Dekstop App">
+                            <div class="project-overlay">
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h4>Aplikasi PPDB Siswa SMA/MA</h4>
+                            <p>Aplikasi "InSchool" adalah aplikasi desktop berbasis
+                                Windows Forms (VB.NET) untuk manajemen PPDB
+                                SMA/MA. Aplikasi ini memfasilitasi pendaftaran siswa
+                                secara daring dengan dua jalur pilihan yaitu Prestasi dan
+                                Domisili. Dilengkapi dengan sistem manajemen data
+                                terpusat, admin dapat mengelola informasi pendaftar
+                                secara efisien menggunakan fitur CRUD dan fungsi
+                                pencarian data yang akurat guna memastikan validitas
+                                data siswa baru</p>
+                            <div class="project-tags">
+                                <span>VB</span>
+                                <span>MySQL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+        FOOTER
+        ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <!-- About Column -->
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                    <div class="footer-about">
+                        <div class="footer-brand"><span>Lang's</span>Portofolio</div>
+                        <p>
+                            Website portofolio pribadi yang menampilkan informasi data diri, pengalaman, dan penghargaan.
+                        </p>
+                        <div class="social-links">
+                            <a href="https://github.com/gilang-raga" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/gilang-raga-yudistira-b29270327/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.instagram.com/gilang.rydst/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Links Column -->
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Link Cepat</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Beranda</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> Tentang</a></li>
+                        <li><a href="experience.html"><i class="fas fa-chevron-right"></i> Pengalaman</a></li>
+                        <li><a href="skills.html"><i class="fas fa-chevron-right"></i> Skill</a></li>
+                        <li><a href="projects.html"><i class="fas fa-chevron-right"></i> Project</a></li>
+                    </ul>
+                </div>
+
+                <!-- More Links Column -->
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Lainnya</h4>
+                    <ul class="footer-links">
+                        <li><a href="certificates.html"><i class="fas fa-chevron-right"></i> Sertifikat</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Kontak</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Column -->
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="footer-title">Kontak & Alamat</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Jl. Rejosari, No. 32, Kel. Benowo, Kec. Pakal, Surabaya, Jawa Timur</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>24050974033@mhs.unesa.ac.id</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>
+                    &copy; 2026 Lang'sPortfolio. Dibuat oleh Gilang Raga Yudistira
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>

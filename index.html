@@ -1,441 +1,408 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { 
-  User, 
-  Briefcase, 
-  Code, 
-  Award, 
-  Mail, 
-  ExternalLink, 
-  Download, 
-  Github, 
-  Linkedin, 
-  Instagram,
-  ChevronRight,
-  Send,
-  CheckCircle2,
-  FileBadge
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
 
-// Komponen Pembungkus Animasi Scroll
-const RevealOnScroll = ({ children, className = "" }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef(null);
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Lang'sProtofolio</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
 
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, []);
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+</head>
 
-  return (
-    <div
-      ref={ref}
-      className={`transition-all duration-1000 ease-out transform ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      } ${className}`}
-    >
-      {children}
-    </div>
-  );
-};
+<body>
 
-const App = () => {
-  const [activeTab, setActiveTab] = useState('All');
-  const [scrolled, setScrolled] = useState(false);
-  const [formStatus, setFormStatus] = useState('');
-
-  // Social Links Data
-  const socialLinks = {
-    linkedin: "https://www.linkedin.com/in/gilang-raga-yudistira-b29270327?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-    instagram: "https://www.instagram.com/gilang.rydst?igsh=b24zMWpqdzc4dXFh",
-    github: "https://github.com/Gilang-Web-Dev"
-  };
-
-  // Handle Navbar scroll effect
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const skills = [
-    { name: 'React.js', level: 90, category: 'Web' },
-    { name: 'Figma', level: 85, category: 'Design' },
-    { name: 'Tailwind CSS', level: 95, category: 'Web' },
-    { name: 'Node.js', level: 80, category: 'Web' },
-    { name: 'Python', level: 75, category: 'Programming' },
-    { name: 'UI/UX Design', level: 88, category: 'Design' },
-  ];
-
-  const experiences = [
-    {
-      role: 'Senior Fullstack Developer',
-      company: 'Tech Innovate Corp',
-      period: '2021 - Present',
-      desc: 'Memimpin tim pengembang untuk membangun solusi enterprise yang scalable.'
-    },
-    {
-      role: 'UI/UX Designer',
-      company: 'Creative Studio',
-      period: '2019 - 2021',
-      desc: 'Mentransformasi kebutuhan pengguna yang kompleks menjadi antarmuka yang elegan.'
-    }
-  ];
-
-  const certificates = [
-    {
-      title: 'Google Data Analytics Professional Certificate',
-      issuer: 'Google',
-      date: '2023',
-      img: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80'
-    },
-    {
-      title: 'Meta Front-End Developer Specialization',
-      issuer: 'Meta',
-      date: '2023',
-      img: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80'
-    },
-    {
-      title: 'Full Stack Web Development',
-      issuer: 'Udemy Academic',
-      date: '2022',
-      img: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=800&q=80'
-    }
-  ];
-
-  const projects = [
-    { title: 'E-Commerce Platform', category: 'Web', img: 'https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&w=800&q=80' },
-    { title: 'Fitness App Design', category: 'Mobile', img: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80' },
-    { title: 'Brand Identity', category: 'Design', img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80' },
-    { title: 'Portfolio Website', category: 'Web', img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80' },
-  ];
-
-  const filteredProjects = activeTab === 'All' 
-    ? projects 
-    : projects.filter(p => p.category === activeTab);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormStatus('Mengirim...');
-    setTimeout(() => setFormStatus('Pesan Berhasil Dikirim!'), 1500);
-  };
-
-  return (
-    <div className="min-h-screen bg-[#F8FAFC] text-[#1E293B] font-sans selection:bg-[#60A5FA] selection:text-white scroll-smooth">
-      
-      {/* 3.1 Header & Navigation */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-        scrolled 
-          ? 'bg-[#1E40AF] shadow-xl py-3 text-white' 
-          : 'bg-white/80 backdrop-blur-md md:bg-transparent py-5 text-[#1E293B]'
-      }`}>
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <div className={`text-2xl font-extrabold tracking-tight transition-colors duration-500 ${
-            scrolled ? 'text-white' : 'text-[#1E40AF]'
-          }`}>
-            LANG'S <span className={scrolled ? 'text-blue-200' : 'text-[#60A5FA]'}>STUDIO</span>
-          </div>
-          
-          <div className="hidden md:flex space-x-8 font-medium">
-            {['Home', 'Experience', 'Certificates', 'Projects', 'Contact'].map((item) => (
-              <a 
-                key={item} 
-                href={`#${item.toLowerCase()}`} 
-                className={`transition-colors duration-300 relative group ${
-                  scrolled ? 'hover:text-blue-200' : 'hover:text-[#1E40AF]'
-                }`}
-              >
-                {item}
-                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${scrolled ? 'bg-white' : 'bg-[#1E40AF]'}`}></span>
-              </a>
-            ))}
-          </div>
-
-          <button className={`px-5 py-2 rounded-lg font-semibold transition-all duration-500 flex items-center gap-2 shadow-lg ${
-            scrolled 
-              ? 'bg-white text-[#1E40AF] hover:bg-blue-50 shadow-white/10' 
-              : 'bg-[#1E40AF] text-white hover:bg-[#1e3a8a] shadow-blue-200/50'
-          }`}>
-            <Download size={18} />
-            Download CV
-          </button>
-        </div>
-      </nav>
-
-      {/* 3.2 Hero Section */}
-      <section id="home" className="pt-40 pb-20 px-6 overflow-hidden">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6 animate-in fade-in slide-in-from-left duration-1000">
-            <div className="inline-block px-4 py-1.5 bg-blue-50 text-[#1E40AF] rounded-full text-sm font-bold border border-blue-100">
-              OPEN FOR COLLABORATION
-            </div>
-            <h1 className="text-5xl md:text-7xl font-[800] leading-tight text-[#1E293B]">
-              Elevating Digital Experiences with <span className="text-[#1E40AF]">Lang's Studio.</span>
-            </h1>
-            <p className="text-lg text-slate-600 max-w-lg leading-relaxed">
-              Kami membantu bisnis membangun produk digital yang estetik, fungsional, dan berorientasi pada hasil. Kepercayaan Anda adalah prioritas kami.
-            </p>
-            <div className="flex gap-4 pt-4">
-              <a href="#contact" className="bg-[#1E40AF] text-white px-8 py-3 rounded-lg font-bold hover:shadow-xl hover:-translate-y-1 transition-all active:scale-95 text-center">
-                Mulai Sekarang
-              </a>
-              <div className="flex items-center gap-4 px-4 text-slate-500">
-                <a href={socialLinks.github} target="_blank" rel="noopener noreferrer">
-                  <Github className="hover:text-[#1E40AF] transition-all hover:scale-110 cursor-pointer" />
-                </a>
-                <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer">
-                  <Linkedin className="hover:text-[#1E40AF] transition-all hover:scale-110 cursor-pointer" />
-                </a>
-                <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer">
-                  <Instagram className="hover:text-[#1E40AF] transition-all hover:scale-110 cursor-pointer" />
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="relative animate-in fade-in zoom-in duration-1000 delay-200">
-            <div className="absolute -inset-4 bg-gradient-to-r from-[#1E40AF] to-[#60A5FA] rounded-3xl opacity-20 blur-2xl animate-pulse"></div>
-            <img 
-              src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" 
-              alt="Workspace" 
-              className="relative rounded-3xl shadow-2xl border-4 border-white hover:rotate-2 transition-transform duration-500"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* 3.3 Experience & Skills */}
-      <section id="experience" className="py-20 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-20">
-            
-            {/* Work Timeline */}
-            <RevealOnScroll>
-              <div>
-                <div className="flex items-center gap-2 mb-8">
-                  <Briefcase className="text-[#1E40AF]" />
-                  <h2 className="text-3xl font-bold">Experience</h2>
-                </div>
-                <div className="space-y-8">
-                  {experiences.map((exp, i) => (
-                    <div key={i} className="relative pl-8 border-l-2 border-slate-100 group">
-                      <div className="absolute -left-[9px] top-0 w-4 h-4 bg-white border-2 border-[#1E40AF] rounded-full group-hover:bg-[#1E40AF] transition-all"></div>
-                      <span className="text-sm font-bold text-[#60A5FA]">{exp.period}</span>
-                      <h3 className="text-xl font-bold mt-1">{exp.role}</h3>
-                      <p className="text-[#1E40AF] font-medium mb-2">{exp.company}</p>
-                      <p className="text-slate-600">{exp.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </RevealOnScroll>
-
-            {/* Skill Matrix */}
-            <RevealOnScroll className="delay-200">
-              <div>
-                <div className="flex items-center gap-2 mb-8">
-                  <Code className="text-[#1E40AF]" />
-                  <h2 className="text-3xl font-bold">Skill Matrix</h2>
-                </div>
-                <div className="grid gap-6">
-                  {skills.map((skill, i) => (
-                    <div key={i}>
-                      <div className="flex justify-between mb-2 font-semibold">
-                        <span>{skill.name}</span>
-                        <span className="text-[#1E40AF]">{skill.level}%</span>
-                      </div>
-                      <div className="h-3 bg-slate-100 rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-gradient-to-r from-[#1E40AF] to-[#60A5FA] rounded-full transition-all duration-1000"
-                          style={{ width: `${skill.level}%` }}
-                        ></div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </RevealOnScroll>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Sertifikat Section */}
-      <section id="certificates" className="py-20 bg-slate-50 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6">
-          <RevealOnScroll>
-            <div className="flex items-center gap-2 mb-4">
-              <Award className="text-[#1E40AF]" />
-              <h2 className="text-3xl font-bold">Sertifikat</h2>
-            </div>
-            <p className="text-slate-500 mb-12">Bukti kompetensi dan dedikasi saya dalam terus belajar.</p>
-          </RevealOnScroll>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {certificates.map((cert, i) => (
-              <RevealOnScroll key={i} className={`delay-[${i * 150}ms]`}>
-                <div className="bg-white rounded-2xl overflow-hidden shadow-md group hover:shadow-xl transition-all duration-300 border border-slate-100">
-                  <div className="h-48 overflow-hidden relative">
-                    <img src={cert.img} alt={cert.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                    <div className="absolute inset-0 bg-[#1E40AF]/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                       <FileBadge className="text-white w-12 h-12 drop-shadow-lg" />
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <div className="text-xs font-bold text-[#60A5FA] mb-2 uppercase tracking-wider">{cert.issuer} • {cert.date}</div>
-                    <h3 className="text-lg font-bold text-slate-800 leading-snug group-hover:text-[#1E40AF] transition-colors">{cert.title}</h3>
-                  </div>
-                </div>
-              </RevealOnScroll>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3.4 Project Gallery */}
-      <section id="projects" className="py-20 px-6">
-        <div className="max-w-7xl mx-auto text-center">
-          <RevealOnScroll>
-            <h2 className="text-4xl font-bold mb-4">Project Gallery</h2>
-            <p className="text-slate-500 mb-10 max-w-2xl mx-auto">Kami mengonversi ide menjadi kenyataan melalui karya yang terukur.</p>
-            
-            {/* Filter System */}
-            <div className="flex justify-center gap-4 mb-12">
-              {['All', 'Web', 'Mobile', 'Design'].map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveTab(cat)}
-                  className={`px-6 py-2 rounded-full font-semibold transition-all ${activeTab === cat ? 'bg-[#1E40AF] text-white' : 'bg-white text-slate-500 border border-slate-200 hover:border-[#1E40AF]'}`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </RevealOnScroll>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
-            {filteredProjects.map((project, i) => (
-              <RevealOnScroll key={i} className={`delay-[${i * 100}ms]`}>
-                <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:-translate-y-2">
-                  <div className="relative overflow-hidden h-48">
-                    <img src={project.img} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700" />
-                    <div className="absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-lg text-xs font-bold text-[#1E40AF]">
-                      {project.category}
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2 group-hover:text-[#1E40AF] transition-colors">{project.title}</h3>
-                    <button className="flex items-center gap-1 text-sm font-bold text-[#60A5FA] group/btn">
-                      View Case Study <ChevronRight size={16} className="group-hover/btn:translate-x-1 transition-all" />
-                    </button>
-                  </div>
-                </div>
-              </RevealOnScroll>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3.6 Contact & Social Integration */}
-      <section id="contact" className="py-20 bg-slate-900 text-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16">
-          <RevealOnScroll>
-            <div>
-              <h2 className="text-4xl font-bold mb-6">Let's build something <span className="text-[#60A5FA]">extraordinary</span>.</h2>
-              <p className="text-slate-400 mb-8 leading-relaxed">
-                Siap untuk memulai proyek Anda? Hubungi kami untuk konsultasi gratis dan mari wujudkan visi Anda menjadi kenyataan.
-              </p>
-              <div className="space-y-6">
-                <div className="flex items-center gap-4 group cursor-pointer">
-                  <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center group-hover:bg-[#1E40AF] transition-all">
-                    <Mail className="text-[#60A5FA] group-hover:text-white" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-slate-500">Email us at</p>
-                    <p className="font-bold">ragayudistiragilang@gmail.com</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4 group">
-                  <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
-                    <CheckCircle2 className="text-[#60A5FA]" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-slate-500">Response time</p>
-                    <p className="font-bold">Within 24 Hours</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </RevealOnScroll>
-
-          <RevealOnScroll className="delay-300">
-            <div className="bg-white rounded-3xl p-8 text-[#1E293B] shadow-2xl">
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-bold mb-2">Nama Lengkap</label>
-                  <input type="text" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#60A5FA] transition-all" placeholder="John Doe" required />
-                </div>
-                <div>
-                  <label className="block text-sm font-bold mb-2">Email</label>
-                  <input type="email" className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#60A5FA] transition-all" placeholder="john@example.com" required />
-                </div>
-                <div>
-                  <label className="block text-sm font-bold mb-2">Pesan</label>
-                  <textarea className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#60A5FA] transition-all h-32" placeholder="Apa yang bisa kami bantu?"></textarea>
-                </div>
-                <button className="w-full bg-[#1E40AF] text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#1e3a8a] transition-all disabled:opacity-50 active:scale-95 shadow-lg shadow-blue-900/20">
-                  {formStatus ? (
-                    <span className="flex items-center gap-2 italic">{formStatus}</span>
-                  ) : (
-                    <>
-                      <Send size={18} /> Send Message
-                    </>
-                  )}
-                </button>
-              </form>
-            </div>
-          </RevealOnScroll>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-10 border-t border-slate-800 bg-slate-900 text-slate-500 text-center">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="font-bold text-white tracking-tight">
-            LANG'S <span className="text-[#60A5FA]">STUDIO</span>
-          </div>
-          <p>© 2024 Lang's Studio. All rights reserved.</p>
-          <div className="flex gap-6">
-            <a href={socialLinks.github} target="_blank" rel="noopener noreferrer">
-              <Github size={20} className="hover:text-white hover:scale-125 transition-all cursor-pointer" />
+    <!-- ============================================
+        NAVIGATION
+        ============================================ -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span>Lang's</span>Portofolio
             </a>
-            <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer">
-              <Linkedin size={20} className="hover:text-white hover:scale-125 transition-all cursor-pointer" />
-            </a>
-            <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer">
-              <Instagram size={20} className="hover:text-white hover:scale-125 transition-all cursor-pointer" />
-            </a>
-          </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">Tentang Saya</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="experience.html">Pengalaman</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="skills.html">Skill & Tools</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="projects.html">Project</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="certificates.html">Sertifikat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Kontak</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </footer>
-    </div>
-  );
-};
+    </nav>
 
-export default App;
+    <!-- ============================================
+        HERO SECTION
+        ============================================ -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 hero-content">
+                    <h1 class="hero-title">
+                        Halo, Saya <span class="highlight">Gilang Raga Yudistira</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Semester 4 | S1 Pendidikan Teknologi Informasi
+                    </p>
+                    <p class="hero-description">
+                        Mahasiswa aktif semester 4 yang passionate dalam dunia teknologi dan pendidikan.
+                        Memiliki ketertarikan khusus pada pengembangan web, desain multimedia,
+                        dan penerapan teknologi dalam pembelajaran. Selalu antusias untuk
+                        belajar hal baru dan mengembangkan keterampilan di bidang IT.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="projects.html" class="btn btn-primary-custom">
+                            <i class="fas fa-eye me-2"></i>Lihat Project
+                        </a>
+                        <a href="contact.html" class="btn btn-outline-custom">
+                            <i class="fas fa-envelope me-2"></i>Kontak Saya
+                        </a>
+                    </div>
+                    <div class="social-links mt-4">
+                        <a href="https://github.com/gilang-raga" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/gilang-raga-yudistira-b29270327/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/gilang.rydst/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-5 hero-image text-center">
+                    <img src="img/foto.jpeg" alt="Profile Photo" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+        QUICK STATS SECTION
+        ============================================ -->
+    <section class="section-padding section-bg-dark">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 col-6 mb-4 mb-md-0">
+                    <div class="fade-in-up">
+                        <i class="fas fa-project-diagram fa-3x mb-3" style="color: var(--primary-orange);"></i>
+                        <h3 class="display-4 fw-bold text-white counter" data-target="4">0</h3>
+                        <p class="text-muted">Project Showcase</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4 mb-md-0">
+                    <div class="fade-in-up">
+                        <i class="fas fa-certificate fa-3x mb-3" style="color: var(--primary-orange);"></i>
+                        <h3 class="display-4 fw-bold text-white counter" data-target="8">0</h3>
+                        <p class="text-muted">Sertifikat</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="fade-in-up">
+                        <i class="fas fa-code fa-3x mb-3" style="color: var(--primary-orange);"></i>
+                        <h3 class="display-4 fw-bold text-white counter" data-target="12">0</h3>
+                        <p class="text-muted">Skill Teknis</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="fade-in-up">
+                        <i class="fas fa-award fa-3x mb-3" style="color: var(--primary-orange);"></i>
+                        <h3 class="display-4 fw-bold text-white counter" data-target="5">0</h3>
+                        <p class="text-muted">Penghargaan</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+        FEATURED PROJECTS SECTION
+        ============================================ -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-title fade-in-up">
+                <h2>Project <span style="color: var(--primary-orange);">Unggulan</span></h2>
+                <p>Beberapa project terbaik yang telah saya buat</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6 project-item dekstop">
+                    <div class="project-card fade-in-up">
+                        <div class="project-image">
+                            <img src="img/dekstopapp2.png"
+                                alt="Dekstop App">
+                            <div class="project-overlay">
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h4>Aplikasi PPDB Siswa SMA/MA</h4>
+                            <p>Aplikasi "InSchool" adalah aplikasi desktop berbasis
+                                Windows Forms (VB.NET) untuk manajemen PPDB
+                                SMA/MA. Aplikasi ini memfasilitasi pendaftaran siswa
+                                secara daring dengan dua jalur pilihan yaitu Prestasi dan
+                                Domisili. Dilengkapi dengan sistem manajemen data
+                                terpusat, admin dapat mengelola informasi pendaftar
+                                secara efisien menggunakan fitur CRUD dan fungsi
+                                pencarian data yang akurat guna memastikan validitas
+                                data siswa baru</p>
+                            <div class="project-tags">
+                                <span>VB</span>
+                                <span>MySQL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 project-item mobile">
+                    <div class="project-card fade-in-up">
+                        <div class="project-image">
+                            <img src="img/mobileapp.png" alt="Mobile Apps">
+                            <div class="project-overlay">
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h4>Aplikasi Mobile Jago Sholat</h4>
+                            <p>Pengembangan aplikasi “Jago Sholat” dengan bahasa
+                                pemrograman java dan kotlin. Pada versi update ini, terdapat
+                                penambahan beberapa fitur yang dapat membantu pengguna
+                                dalamberibadah secara konsisten, seperti notifikasi suara adzan
+                                ketika memasuki jam sholat, fitur kompas yang bisa digunakan
+                                untuk menentukan arah kiblat, fitur tasbih digital yang dapat
+                                digunakan ketika pengguna tidak membawa tasbih saat beribadah,
+                                menu sidebar yang terdapat halaman akun pengguna dan
+                                halaman tentang aplikasi.
+
+                            </p>
+                            <div class="project-tags">
+                                <span>Java</span>
+                                <span>Kotlin</span>
+                                <span>MySQL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 project-item dekstop">
+                    <div class="project-card fade-in-up">
+                        <div class="project-image">
+                            <img src="img/dekstopapp.png" alt="Deksrtop App">
+                            <div class="project-overlay">
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h4>Aplikasi Dekstop Pemesanan Makanan</h4>
+                            <p>Aplikasi GUI berbasis desktop berjudul “Domatio Cafe” ini
+                                dikembangkan menggunakan bahasa pemrograman Java dengan
+                                menerapkan konsep Object-Oriented Programming (OOP).
+                                Aplikasi ini dirancang untuk memudahkan pelanggan dalam
+                                memesan makanan secara daring tanpa harus mengantre atau
+                                memanggil pelayan</p>
+                            <div class="project-tags">
+                                <span>JavaFX</span>
+                                <span>MySQL</span>
+                                <span>Swing</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="projects.html" class="btn btn-primary-custom">
+                    <i class="fas fa-th-large me-2"></i>Lihat Semua Project
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+        SKILLS PREVIEW SECTION
+        ============================================ -->
+    <section class="section-padding section-bg-dark">
+        <div class="container">
+            <div class="section-title fade-in-up">
+                <h2>Skill <span style="color: var(--primary-orange);">Utama</span></h2>
+                <p>Kemampuan teknis yang saya kuasai</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="skill-category fade-in-up">
+                        <h4><i class="fas fa-code"></i> Web Development</h4>
+
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">HTML & CSS</span>
+                                <span class="skill-percent">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90" style="width: 0%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">JavaScript</span>
+                                <span class="skill-percent">75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="75" style="width: 0%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Bootstrap</span>
+                                <span class="skill-percent">50%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="70" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="skill-category fade-in-up">
+                        <h4><i class="fas fa-paint-brush"></i> Desain & Multimedia</h4>
+
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Canva</span>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85" style="width: 0%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Figma</span>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80" style="width: 0%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">CapCut</span>
+                                <span class="skill-percent">65%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="65" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="skills.html" class="btn btn-outline-custom">
+                    <i class="fas fa-list me-2"></i>Lihat Semua Skill
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+        FOOTER
+        ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <!-- About Column -->
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                    <div class="footer-about">
+                        <div class="footer-brand"><span>Lang's</span>Portofolio</div>
+                        <p>
+                            Website portofolio pribadi yang menampilkan informasi data diri, pengalaman, dan penghargaan.
+                        </p>
+                        <div class="social-links">
+                            <a href="https://github.com/gilang-raga" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/gilang-raga-yudistira-b29270327/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.instagram.com/gilang.rydst/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Links Column -->
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Link Cepat</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Beranda</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> Tentang</a></li>
+                        <li><a href="experience.html"><i class="fas fa-chevron-right"></i> Pengalaman</a></li>
+                        <li><a href="skills.html"><i class="fas fa-chevron-right"></i> Skill</a></li>
+                        <li><a href="projects.html"><i class="fas fa-chevron-right"></i> Project</a></li>
+                    </ul>
+                </div>
+
+                <!-- More Links Column -->
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Lainnya</h4>
+                    <ul class="footer-links">
+                        <li><a href="certificates.html"><i class="fas fa-chevron-right"></i> Sertifikat</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Kontak</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Column -->
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="footer-title">Kontak & Alamat</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Jl. Rejosari, No. 32, Kel. Benowo, Kec. Pakal, Surabaya, Jawa Timur</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>24050974033@mhs.unesa.ac.id</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>
+                    &copy; 2026 Lang'sPortfolio. Dibuat oleh Gilang Raga
+                    Yudistira
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>
